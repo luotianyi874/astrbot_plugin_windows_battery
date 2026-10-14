@@ -1,0 +1,26 @@
+{
+  "user_name": {
+    "description": "用户名 / 称呼",
+    "type": "string",
+    "hint": "回复里的称呼。留空时若开启「使用发送者昵称」则用对方昵称，否则显示「当前计算机」。例：填写「用户」，回复就是「用户还有87%电量」。",
+    "default": ""
+  },
+  "use_sender_name": {
+    "description": "用户名留空时使用发送者昵称",
+    "type": "bool",
+    "hint": "开启后，若上面没填用户名，就用发送消息的人的昵称来称呼。",
+    "default": true
+  },
+  "reply_template": {
+    "description": "回复模板",
+    "type": "text",
+    "hint": "自定义回复内容。可用占位符：{username} 用户名 / {percent} 电量百分比 / {state} 充电状态（电源已接通、使用电池）/ {sender} 发送者昵称。默认：「{username}，你的设备电量还有{percent}。」",
+    "default": "{username}，你的设备电量还有{percent}。"
+  },
+  "allow_runtime_edit": {
+    "description": "允许通过指令修改模板和用户名",
+    "type": "bool",
+    "hint": "开启后可使用「设置电量模板」「设置电量用户名」指令临时修改，无需改配置。",
+    "default": true
+  }
+}
