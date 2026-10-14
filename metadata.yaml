@@ -4,7 +4,7 @@ desc: 通过指令查询运行 AstrBot 的 Windows 计算机当前电池剩余�
 short_desc: 一条指令查看 Windows 电脑剩余电量。
 version: v1.1.0
 author: luotianyi874
-repo: https://github.com/YOUR_GITHUB_USERNAME/astrbot_plugin_windows_battery
+repo: https://github.com/luotianyi874/astrbot_plugin_windows_battery/blob/master/metadata.yaml
 tags:
 - 工具
 - 系统
