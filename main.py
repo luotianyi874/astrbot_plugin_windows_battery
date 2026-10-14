@@ -52,7 +52,7 @@ CMD_SET_NAME = ("设置电量用户名", "电量用户名")
     PLUGIN_NAME,
     "luotianyi874",
     "查询 Windows 计算机电池剩余电量，回复内容与用户名可自定义",
-    "v1.1.0",
+    "v1.0.0",
 )
 class WindowsBatteryPlugin(Star):
     def __init__(self, context: Context, config=None):
