@@ -1,12 +1,23 @@
 name: astrbot_plugin_windows_battery
 display_name: Windows 设备电量
-desc: 通过指令查询运行 AstrBot 的 Windows 计算机当前电池剩余电量，回复模板与用户名可自定义。仅对 Windows 本机部署有效。
-short_desc: 一条指令查看 Windows 电脑剩余电量。
-version: v1.0.0
+desc: >-
+  查询运行 AstrBot 的这台 Windows 电脑还剩多少电。回复内容与称呼可自定义；
+  电量低于设定阈值时会自动提醒，提醒文案、阈值都能在插件配置里改。
+  仅对 Windows 本机部署有效。
+short_desc: 查询 Windows 电脑电量，电量不足时自动提醒。
+version: v1.2.0
 author: luotianyi874
 repo: https://github.com/luotianyi874/astrbot_plugin_windows_battery
+astrbot_version: ">=4.0,<5"
+support_platforms:
+  - aiocqhttp
+  - qq_official
+  - telegram
+  - lark
+  - discord
+  - slack
 tags:
   - 工具
   - 系统
+  - Windows
   - 电量
-  

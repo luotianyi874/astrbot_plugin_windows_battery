@@ -1,26 +1,74 @@
 {
   "user_name": {
-    "description": "用户名 / 称呼",
+    "description": "称呼 / 用户名",
     "type": "string",
-    "hint": "回复里的称呼。留空时若开启「使用发送者昵称」则用对方昵称，否则显示「当前计算机」。例：填写「用户」，回复就是「用户还有87%电量」。",
+    "hint": "回复和提醒里的 {username} 用这个称呼。留空时：查询回复会用发送者昵称（需开启下一项），自动提醒则显示「当前计算机」。例：填「用户」后回复是「用户，你的设备电量还有87%。」",
     "default": ""
   },
   "use_sender_name": {
-    "description": "用户名留空时使用发送者昵称",
+    "description": "称呼留空时使用发送者昵称",
     "type": "bool",
-    "hint": "开启后，若上面没填用户名，就用发送消息的人的昵称来称呼。",
+    "hint": "开启后，上面没填称呼时就用发消息那个人的昵称。只影响查询回复；主动提醒没有发送者，不会用它。",
     "default": true
   },
   "reply_template": {
-    "description": "回复模板",
+    "description": "电量查询回复模板",
     "type": "text",
-    "hint": "自定义回复内容。可用占位符：{username} 用户名 / {percent} 电量百分比 / {state} 充电状态（电源已接通、使用电池）/ {sender} 发送者昵称。默认：「{username}，你的设备电量还有{percent}。」",
-    "default": "{username}，你的设备电量还有{percent}。"
+    "hint": "发送「设备电量」时的回复内容。可用占位符：{username} 称呼、{percent} 电量百分比、{state} 供电状态（电源已接通 / 使用电池）、{sender} 发送者昵称。默认：{username}，你的设备电量还有{percent}%。",
+    "default": "{username}，你的设备电量还有{percent}%。"
   },
   "allow_runtime_edit": {
-    "description": "允许通过指令修改模板和用户名",
+    "description": "允许用指令临时修改称呼和回复模板",
     "type": "bool",
-    "hint": "开启后可使用「设置电量模板」「设置电量用户名」指令临时修改，无需改配置。",
+    "hint": "开启后可以用「设置电量用户名」「设置电量模板」指令修改，改动立即生效并保存在插件数据目录。关掉则只能在本配置页修改。",
     "default": true
+  },
+  "alert_enabled": {
+    "description": "开启低电量自动提醒",
+    "type": "bool",
+    "hint": "开启后，后台按「检测间隔」读取电量，电量掉到「提醒阈值」及以下时，向已订阅的会话推送下面的提醒模板。",
+    "default": true
+  },
+  "alert_percent": {
+    "description": "低电量提醒阈值（%）",
+    "type": "int",
+    "hint": "电量小于或等于该值时触发提醒，可填 1-99。默认 20，即 20% 及以下提醒；填 21 则 21% 及以下提醒。改完下一轮检测立即生效，无需重启。",
+    "default": 20
+  },
+  "alert_template": {
+    "description": "低电量提醒内容",
+    "type": "text",
+    "hint": "自动提醒的文字，可随意改。可用占位符：{username} 称呼、{percent} 当前电量、{threshold} 提醒阈值、{state} 供电状态、{time} 提醒时间。默认：{username}，你的设备电量还有{percent}%，请及时充电。",
+    "default": "{username}，你的设备电量还有{percent}%，请及时充电。"
+  },
+  "only_on_battery": {
+    "description": "仅在使用电池时提醒",
+    "type": "bool",
+    "hint": "开启后，插着电源时即使电量很低也不提醒，避免白提醒一场。想在充电时也提醒就关掉它。",
+    "default": true
+  },
+  "check_interval": {
+    "description": "检测间隔（秒）",
+    "type": "int",
+    "hint": "电量掉到阈值附近时按这个间隔检测，默认 60 秒，最小 10 秒、最大 3600 秒。电量充足、插着电、还没人订阅时会自动放慢到 2-5 分钟（甚至完全不读电量），所以不用怕填太小。",
+    "default": 60
+  },
+  "repeat_interval": {
+    "description": "重复提醒间隔（分钟）",
+    "type": "int",
+    "hint": "电量一直低于阈值、又没有充上电时，每隔多少分钟再提醒一次，默认 30。填 0 表示只提醒一次，直到电量回升。",
+    "default": 30
+  },
+  "auto_bind_session": {
+    "description": "查询电量后自动订阅当前会话",
+    "type": "bool",
+    "hint": "开启后，谁发过「设备电量」，那个会话就会自动收到低电量提醒，省去手动绑定。不想让某个群收到，在群里发一次「电量提醒解绑」即可。",
+    "default": true
+  },
+  "push_targets": {
+    "description": "固定提醒会话（一般不用填）",
+    "type": "text",
+    "hint": "始终接收提醒的会话标识，格式如 aiocqhttp:FriendMessage:123456 或 qq_official:GroupMessage:xxxx。多个用逗号或换行分隔。留空则只提醒用指令订阅过的会话。",
+    "default": ""
   }
 }
